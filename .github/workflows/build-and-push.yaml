@@ -1,0 +1,79 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    strategy:
+      matrix:
+        service:
+          - name: regime-platform
+            dir: gateway
+          - name: regime-market-data
+            dir: market-data
+          - name: regime-feature-engine
+            dir: feature-engine
+          - name: regime-detection-core
+            dir: detection-core
+          - name: regime-backtesting
+            dir: backtesting
+          - name: regime-visualization
+            dir: visualization
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build base image
+        uses: docker/build-push-action@v5
+        with:
+          context: docker/base
+          file: docker/base/Dockerfile
+          tags: regime-base:latest
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build service image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/${{ matrix.service.dir }}/Dockerfile
+          tags: ${{ matrix.service.name }}:${{ github.sha }}
+          load: true
+
+      - name: Configure AWS credentials
+        if: github.event_name == 'push'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        if: github.event_name == 'push'
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Push to ECR
+        if: github.event_name == 'push'
+        run: |
+          docker tag ${{ matrix.service.name }}:${{ github.sha }} \
+            ${{ steps.ecr.outputs.registry }}/${{ matrix.service.name }}:${{ github.sha }}
+          docker tag ${{ matrix.service.name }}:${{ github.sha }} \
+            ${{ steps.ecr.outputs.registry }}/${{ matrix.service.name }}:latest
+          docker push ${{ steps.ecr.outputs.registry }}/${{ matrix.service.name }}:${{ github.sha }}
+          docker push ${{ steps.ecr.outputs.registry }}/${{ matrix.service.name }}:latest

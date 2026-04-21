@@ -1,0 +1,11 @@
+FROM regime-base:latest AS builder
+RUN pip install --no-cache-dir --prefix=/install \
+    regime-feature-engine@git+https://github.com/govid13427742/regime-feature-engine.git@main
+
+FROM regime-base:latest
+COPY --from=builder /install /usr/local
+COPY . /app
+EXPOSE 8002
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD python -c "import httpx; httpx.get('http://localhost:8002/health').raise_for_status()"
+CMD ["uvicorn", "services.feature_engine.app:app", "--host", "0.0.0.0", "--port", "8002"]

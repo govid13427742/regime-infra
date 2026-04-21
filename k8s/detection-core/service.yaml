@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: detection-core
+  namespace: regime
+  labels:
+    app: detection-core
+spec:
+  type: ClusterIP
+  selector:
+    app: detection-core
+  ports:
+    - port: 8003
+      targetPort: 8003
+      protocol: TCP

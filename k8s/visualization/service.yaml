@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: visualization
+  namespace: regime
+  labels:
+    app: visualization
+spec:
+  type: ClusterIP
+  selector:
+    app: visualization
+  ports:
+    - port: 8005
+      targetPort: 8005
+      protocol: TCP

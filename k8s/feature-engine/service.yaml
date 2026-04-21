@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: feature-engine
+  namespace: regime
+  labels:
+    app: feature-engine
+spec:
+  type: ClusterIP
+  selector:
+    app: feature-engine
+  ports:
+    - port: 8002
+      targetPort: 8002
+      protocol: TCP

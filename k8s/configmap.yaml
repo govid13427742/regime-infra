@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: regime-config
+  namespace: regime
+data:
+  MARKET_DATA_URL: "http://market-data.regime.svc.cluster.local:8001"
+  FEATURE_ENGINE_URL: "http://feature-engine.regime.svc.cluster.local:8002"
+  DETECTION_CORE_URL: "http://detection-core.regime.svc.cluster.local:8003"
+  BACKTESTING_URL: "http://backtesting.regime.svc.cluster.local:8004"
+  VISUALIZATION_URL: "http://visualization.regime.svc.cluster.local:8005"
+  LOG_LEVEL: "INFO"
