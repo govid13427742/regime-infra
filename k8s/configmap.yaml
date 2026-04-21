@@ -9,4 +9,7 @@ data:
   DETECTION_CORE_URL: "http://detection-core.regime.svc.cluster.local:6003"
   BACKTESTING_URL: "http://backtesting.regime.svc.cluster.local:6004"
   VISUALIZATION_URL: "http://visualization.regime.svc.cluster.local:6005"
+  KEYCLOAK_URL: "http://keycloak.regime.svc.cluster.local:6080"
+  KEYCLOAK_REALM: "regime"
+  KEYCLOAK_CLIENT_ID: "regime-platform"
   LOG_LEVEL: "INFO"

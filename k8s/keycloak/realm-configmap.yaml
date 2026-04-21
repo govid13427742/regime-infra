@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-realm
+  namespace: regime
+data:
+  regime-realm.json: |
+    {
+      "realm": "regime",
+      "enabled": true,
+      "displayName": "Regime Detection Platform",
+      "sslRequired": "none",
+      "registrationAllowed": false,
+      "loginWithEmailAllowed": true,
+      "bruteForceProtected": true,
+      "accessTokenLifespan": 300,
+      "ssoSessionIdleTimeout": 1800,
+      "roles": {
+        "realm": [
+          {"name": "admin", "description": "Platform administrator"},
+          {"name": "viewer", "description": "Read-only access"}
+        ]
+      },
+      "clients": [
+        {
+          "clientId": "regime-platform",
+          "name": "Regime Platform Dashboard",
+          "enabled": true,
+          "publicClient": true,
+          "standardFlowEnabled": true,
+          "directAccessGrantsEnabled": false,
+          "rootUrl": "http://localhost:6000",
+          "baseUrl": "/",
+          "redirectUris": ["http://localhost:6000/*", "http://localhost:30080/*", "https://regime.example.com/*"],
+          "webOrigins": ["http://localhost:6000", "http://localhost:30080", "https://regime.example.com"],
+          "protocol": "openid-connect",
+          "attributes": {"pkce.code.challenge.method": "S256"},
+          "defaultClientScopes": ["web-origins", "profile", "roles", "email"]
+        }
+      ],
+      "users": [
+        {
+          "username": "regime-admin",
+          "email": "admin@regime.local",
+          "enabled": true,
+          "firstName": "Regime",
+          "lastName": "Admin",
+          "credentials": [{"type": "password", "value": "regime123", "temporary": true}],
+          "realmRoles": ["admin"]
+        }
+      ]
+    }
