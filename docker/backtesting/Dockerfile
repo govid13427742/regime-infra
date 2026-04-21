@@ -1,6 +1,6 @@
 FROM regime-base:latest AS builder
 RUN pip install --no-cache-dir --prefix=/install \
-    regime-backtesting@git+https://github.com/govid13427742/regime-backtesting.git@main
+    regime-backtesting@git+https://github.com/RegimeDetectionApp/regime-backtesting.git@main
 
 FROM regime-base:latest
 COPY --from=builder /install /usr/local

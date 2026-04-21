@@ -1,6 +1,6 @@
 FROM regime-base:latest AS builder
 RUN pip install --no-cache-dir --prefix=/install matplotlib>=3.7 \
-    regime-visualization@git+https://github.com/govid13427742/regime-visualization.git@main
+    regime-visualization@git+https://github.com/RegimeDetectionApp/regime-visualization.git@main
 
 FROM regime-base:latest
 COPY --from=builder /install /usr/local

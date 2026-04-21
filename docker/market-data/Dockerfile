@@ -1,6 +1,6 @@
 FROM regime-base:latest AS builder
 RUN pip install --no-cache-dir --prefix=/install yfinance>=0.2.30 \
-    regime-market-data@git+https://github.com/govid13427742/regime-market-data.git@main
+    regime-market-data@git+https://github.com/RegimeDetectionApp/regime-market-data.git@main
 
 FROM regime-base:latest
 COPY --from=builder /install /usr/local
