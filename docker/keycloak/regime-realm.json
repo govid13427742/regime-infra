@@ -2,7 +2,7 @@
   "realm": "regime",
   "enabled": true,
   "displayName": "Regime Detection Platform",
-  "sslRequired": "none",
+  "sslRequired": "NONE",
   "registrationAllowed": false,
   "loginWithEmailAllowed": true,
   "duplicateEmailsAllowed": false,
