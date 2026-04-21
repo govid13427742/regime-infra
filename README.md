@@ -11,11 +11,11 @@ Infrastructure-as-Code for deploying the Regime Detection microservices to Kuber
               ├──────────────────────────────┤
               │  Ingress (nginx)              │
               │       │                       │
-              │  Gateway :8000 (LoadBalancer)  │
+              │  Gateway :6000 (LoadBalancer)  │
               │       │                       │
               │  ┌────┴────┬────┬────┬────┐  │
               │  │    │    │    │    │     │  │
-              │ :8001 :8002 :8003 :8004 :8005 │
+              │ :6001 :6002 :6003 :6004 :6005 │
               │ Data  Feat  HMM  Back  Viz    │
               └──────────────────────────────┘
 ```

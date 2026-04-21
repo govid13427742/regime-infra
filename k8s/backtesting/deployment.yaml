@@ -20,7 +20,7 @@ spec:
         - name: backtesting
           image: regime-backtesting
           ports:
-            - containerPort: 8004
+            - containerPort: 6004
           envFrom:
             - configMapRef:
                 name: regime-config
@@ -34,7 +34,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 8004
+              port: 6004
             initialDelaySeconds: 15
             periodSeconds: 30
             timeoutSeconds: 5
@@ -42,7 +42,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /health
-              port: 8004
+              port: 6004
             initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 3

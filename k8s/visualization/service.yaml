@@ -10,6 +10,6 @@ spec:
   selector:
     app: visualization
   ports:
-    - port: 8005
-      targetPort: 8005
+    - port: 6005
+      targetPort: 6005
       protocol: TCP

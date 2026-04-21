@@ -20,7 +20,7 @@ spec:
         - name: gateway
           image: regime-gateway
           ports:
-            - containerPort: 8000
+            - containerPort: 6000
           envFrom:
             - configMapRef:
                 name: regime-config
@@ -34,7 +34,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 8000
+              port: 6000
             initialDelaySeconds: 15
             periodSeconds: 30
             timeoutSeconds: 5
@@ -42,7 +42,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /health
-              port: 8000
+              port: 6000
             initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 3

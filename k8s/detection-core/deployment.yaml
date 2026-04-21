@@ -20,7 +20,7 @@ spec:
         - name: detection-core
           image: regime-detection-core
           ports:
-            - containerPort: 8003
+            - containerPort: 6003
           envFrom:
             - configMapRef:
                 name: regime-config
@@ -34,7 +34,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: 8003
+              port: 6003
             initialDelaySeconds: 15
             periodSeconds: 30
             timeoutSeconds: 5
@@ -42,7 +42,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /health
-              port: 8003
+              port: 6003
             initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 3

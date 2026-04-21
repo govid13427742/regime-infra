@@ -10,6 +10,6 @@ spec:
   selector:
     app: detection-core
   ports:
-    - port: 8003
-      targetPort: 8003
+    - port: 6003
+      targetPort: 6003
       protocol: TCP

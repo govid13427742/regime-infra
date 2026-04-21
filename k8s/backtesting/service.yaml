@@ -10,6 +10,6 @@ spec:
   selector:
     app: backtesting
   ports:
-    - port: 8004
-      targetPort: 8004
+    - port: 6004
+      targetPort: 6004
       protocol: TCP
